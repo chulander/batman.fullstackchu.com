@@ -11,7 +11,7 @@ export default function withAuth(AuthComponent) {
     componentWillMount() {
       if (!Auth.loggedIn()) {
         console.log('testing auth error mount');
-        window.location.replace(authRedirect);
+        // window.location.replace(authRedirect);
       } else {
         try {
           console.log('testing auth success mount');
@@ -21,7 +21,8 @@ export default function withAuth(AuthComponent) {
           });
         } catch (err) {
           Auth.logout();
-          this.props.history.replace('/');
+          console.log('error  getting auth profile');
+          // this.props.history.replace('/');
         }
       }
     }

@@ -16,7 +16,7 @@ class App extends Component {
       } = {}
     } = this.props;
 
-    replace('/login');
+    replace('/');
   };
 
   // componentWillMount() {

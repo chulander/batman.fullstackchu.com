@@ -3,7 +3,7 @@ import decode from 'jwt-decode';
 export default class AuthService {
   // Initializing important variables
   constructor(domain) {
-    this.domain = domain;
+    this.domain = domain || 'https://login.fullstackchu.com'; // API server domain
     this.fetch = this.fetch.bind(this); // React binding stuff
     this.login = this.login.bind(this);
     this.getProfile = this.getProfile.bind(this);
@@ -12,13 +12,12 @@ export default class AuthService {
   login(username, password) {
     // Get a token from api server using the fetch api
     return this.fetch(`${this.domain}`, {
-      method: 'POST',
+      method: 'post',
       body: JSON.stringify({
         username,
         password
       })
     }).then(res => {
-      console.log('AuthService res', res);
       this.setToken(res.token); // Setting the token in localStorage
       return Promise.resolve(res);
     });
@@ -64,23 +63,23 @@ export default class AuthService {
 
   fetch(url, options) {
     // performs api calls sending the required authentication headers
-    const headers = {
+    const headers = new Headers({
       Accept: 'application/json',
-      'Content-Type': 'application/json'
-    };
-
-    // Setting Authorization header
-    // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-    if (this.loggedIn()) {
-      headers['Authorization'] = 'Bearer ' + this.getToken();
-    }
+      'Content-Type': 'application/json',
+      // Setting Authorization header
+      // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
+      ...(this.loggedIn() ? { Authorization: `Bearer ${this.getToken()}` } : {})
+    });
 
     return fetch(url, {
       headers,
       ...options
     })
       .then(this._checkStatus)
-      .then(response => response.json());
+      .then(response => {
+        console.log('what is response here', response);
+        return response.json();
+      });
   }
 
   _checkStatus(response) {
@@ -89,9 +88,11 @@ export default class AuthService {
       // Success status lies between 200 to 300
       return response;
     } else {
-      var error = new Error(response.statusText);
-      error.response = response;
-      throw error;
+      console.log('_checkStatus: what is error', response);
+      return response;
+      // var error = new Error(response.statusText);
+      // error.response = response;
+      // throw error;
     }
   }
 }

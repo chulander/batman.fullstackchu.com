@@ -10,13 +10,6 @@ export default function withAuth(AuthComponent) {
     };
     componentWillMount() {
       if (!Auth.loggedIn()) {
-        const {
-          history: {
-            push = function() {
-              void 0;
-            }
-          } = {}
-        } = this.props;
         console.log('testing auth error mount');
         window.location.href = authRedirect;
       } else {

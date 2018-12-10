@@ -10,10 +10,10 @@ export default function withAuth(AuthComponent) {
       user: null
     };
     componentWillMount() {
-      const { location: { pathname = '', search } = {} } = this.props;
+      const { location: { pathname = '' } = {} } = this.props;
       console.log('what is pathname', pathname);
 
-      const [endpoint, params = ''] = pathname.split('?');
+      const [, params = ''] = pathname.split('?');
 
       const { id_token } = querystring.parse(params);
       console.log('what is parsed.id_token', id_token);

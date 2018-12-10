@@ -13,7 +13,8 @@ export default function withAuth(AuthComponent) {
       // const [, params = ''] = search.split('?');
 
       // console.log()
-      const { id_token } = querystring.parse(window.location.href);
+      const { id_token } = querystring.parse(window.location.search);
+      console.log('what is window.location', window.location.search);
       console.log('what is parsed.id_token', id_token);
       if (!Auth.loggedIn() && !id_token) {
         console.log('testing auth error mount');

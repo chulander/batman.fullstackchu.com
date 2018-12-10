@@ -10,7 +10,7 @@ export default function withAuth(AuthComponent) {
       user: null
     };
     componentWillMount() {
-      const { location: { pathname, search } = {} } = this.props;
+      const { location: { pathname = '', search } = {} } = this.props;
       console.log('what is pathname', pathname);
 
       const [endpoint, params = ''] = pathname.split('?');

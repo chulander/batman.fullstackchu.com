@@ -13,7 +13,6 @@ import {
   Visibility
 } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import logo from '../../resource/logo.png';
 /* eslint-disable react/no-multi-comp */
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
  * such things.
@@ -141,7 +140,7 @@ const HomepageLayout = ({ history, username }) => (
             </p>
           </Grid.Column>
           <Grid.Column floated="right" width={6}>
-            <Image bordered rounded size="large" src={logo} />
+            <Image bordered rounded size="large" src="/logo.png" />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row>

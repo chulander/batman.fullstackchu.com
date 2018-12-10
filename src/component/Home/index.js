@@ -18,11 +18,11 @@ import logo from '../../resource/logo.png';
 /* Heads up! HomepageHeading uses inline styling, however it's not the best practice. Use CSS or styled components for
  * such things.
  */
-const HomepageHeading = ({ mobile }) => (
+const HomepageHeading = ({ mobile, username }) => (
   <Container text>
     <Header
       as="h1"
-      content="You sided with Justice"
+      content={`You sided with Justice ${username}`}
       inverted
       style={{
         fontSize: mobile ? '2em' : '4em',
@@ -63,7 +63,7 @@ class DesktopContainer extends Component {
   showFixedMenu = () => this.setState({ fixed: true });
 
   render() {
-    const { children } = this.props;
+    const { children, username } = this.props;
     const { fixed } = this.state;
 
     return (
@@ -94,7 +94,7 @@ class DesktopContainer extends Component {
                 </Menu.Item>
               </Container>
             </Menu>
-            <HomepageHeading />
+            <HomepageHeading username={username} />
           </Segment>
         </Visibility>
 
@@ -108,9 +108,9 @@ DesktopContainer.propTypes = {
   children: PropTypes.node
 };
 
-const ResponsiveContainer = ({ children }) => (
+const ResponsiveContainer = ({ children, username }) => (
   <div>
-    <DesktopContainer>{children}</DesktopContainer>
+    <DesktopContainer username={username}>{children}</DesktopContainer>
   </div>
 );
 
@@ -118,8 +118,8 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
 
-const HomepageLayout = () => (
-  <ResponsiveContainer>
+const HomepageLayout = ({ history, username }) => (
+  <ResponsiveContainer username={username}>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign="middle">
         <Grid.Row>

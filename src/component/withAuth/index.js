@@ -21,7 +21,7 @@ export default function withAuth(AuthComponent) {
       console.log('what is parsed.id_token', id_token);
       if (!Auth.loggedIn() && !id_token) {
         console.log('testing auth error mount');
-        window.location.replace(authRedirect);
+        // window.location.replace(authRedirect);
         // this.props.history.replace('/');
       } else {
         try {
@@ -38,7 +38,7 @@ export default function withAuth(AuthComponent) {
         } catch (err) {
           Auth.logout();
           console.log('error  getting auth profile', err);
-          window.location.replace(authRedirect);
+          // window.location.replace(authRedirect);
         }
       }
     }

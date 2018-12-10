@@ -12,21 +12,25 @@ export default function withAuth(AuthComponent) {
     componentWillMount() {
       const { location: { search } = {} } = this.props;
       const parsed = querystring.parse(search);
-      console.log('what is parsed', parsed)
-      if (!Auth.loggedIn()) {
+      console.log('what is parsed', parsed);
+      if ((!Auth.loggedIn() && !parsed) || !parsed.id_token) {
         console.log('testing auth error mount');
-        // window.location.replace(authRedirect);
+        window.location.replace(authRedirect);
         // this.props.history.replace('/');
       } else {
         try {
           console.log('testing auth success mount');
+          const token = Auth.getToken();
+          if (!token && parsed && parsed.id_token) {
+            Auth.setToken(parsed.id_token);
+          }
           const profile = Auth.getProfile();
           this.setState({
             user: profile
           });
         } catch (err) {
           Auth.logout();
-          console.log('error  getting auth profile');
+          console.log('error  getting auth profile', err);
           // this.props.history.replace('/');
         }
       }

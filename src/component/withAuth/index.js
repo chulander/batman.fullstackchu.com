@@ -10,8 +10,12 @@ export default function withAuth(AuthComponent) {
       user: null
     };
     componentWillMount() {
-      const { location: { search } = {} } = this.props;
-      const { id_token } = querystring.parse(search);
+      const { location: { pathname, search } = {} } = this.props;
+      console.log('what is pathname', pathname);
+
+      const [endpoint, params = ''] = pathname.split('?');
+
+      const { id_token } = querystring.parse(params);
       console.log('what is parsed.id_token', id_token);
       if (!Auth.loggedIn() && !id_token) {
         console.log('testing auth error mount');

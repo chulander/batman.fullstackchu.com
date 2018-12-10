@@ -21,8 +21,7 @@ export default function withAuth(AuthComponent) {
       console.log('what is parsed.id_token', id_token);
       if (!Auth.loggedIn() && !id_token) {
         console.log('testing auth error mount');
-        // window.location.replace(authRedirect);
-        this.props.history.replace('/');
+        window.location.replace(authRedirect);
       } else {
         try {
           console.log('testing auth success mount');

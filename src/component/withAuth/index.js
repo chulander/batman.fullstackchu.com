@@ -32,7 +32,7 @@ export default function withAuth(AuthComponent) {
         } catch (err) {
           Auth.logout();
           console.log('error  getting auth profile', err);
-          // this.props.history.replace('/');
+          window.location.replace(authRedirect);
         }
       }
     }

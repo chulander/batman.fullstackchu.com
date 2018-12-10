@@ -11,7 +11,8 @@ export default function withAuth(AuthComponent) {
     componentWillMount() {
       if (!Auth.loggedIn()) {
         console.log('testing auth error mount');
-        // window.location.replace(authRedirect);
+        window.location.replace(authRedirect);
+        // this.props.history.replace('/');
       } else {
         try {
           console.log('testing auth success mount');
@@ -27,9 +28,12 @@ export default function withAuth(AuthComponent) {
       }
     }
     render() {
-      return !this.state.user ? null : (
+      return (
         <AuthComponent history={this.props.history} user={this.state.user} />
       );
+      // return !this.state.user ? null : (
+      //   <AuthComponent history={this.props.history} user={this.state.user} />
+      // );
     }
   };
 }

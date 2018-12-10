@@ -11,9 +11,9 @@ export default function withAuth(AuthComponent) {
     };
     componentWillMount() {
       const { location: { search } = {} } = this.props;
-      const parsed = querystring.parse(search);
-      console.log('what is parsed', parsed);
-      if ((!Auth.loggedIn() && !parsed) || !parsed.id_token) {
+      const { id_token } = querystring.parse(search);
+      console.log('what is parsed.id_token', id_token);
+      if (!Auth.loggedIn() && !id_token) {
         console.log('testing auth error mount');
         window.location.replace(authRedirect);
         // this.props.history.replace('/');
@@ -21,8 +21,9 @@ export default function withAuth(AuthComponent) {
         try {
           console.log('testing auth success mount');
           const token = Auth.getToken();
-          if (!token && parsed && parsed.id_token) {
-            Auth.setToken(parsed.id_token);
+          console.log('what is getToken token', token);
+          if (!token && id_token) {
+            Auth.setToken(id_token);
           }
           const profile = Auth.getProfile();
           this.setState({

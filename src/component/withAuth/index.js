@@ -10,14 +10,10 @@ export default function withAuth(AuthComponent) {
       user: null
     };
     componentWillMount() {
-      const { location: { pathname = '', search = '' } = {} } = this.props;
-      console.log('what is pathname', pathname);
-      console.log('what is search', search);
-
       // const [, params = ''] = search.split('?');
 
       // console.log()
-      const { id_token } = querystring.parse(search);
+      const { id_token } = querystring.parse(window.location.href);
       console.log('what is parsed.id_token', id_token);
       if (!Auth.loggedIn() && !id_token) {
         console.log('testing auth error mount');
@@ -42,12 +38,7 @@ export default function withAuth(AuthComponent) {
       }
     }
     render() {
-      return !this.state.user ? null : (
-        <AuthComponent history={this.props.history} user={this.state.user} />
-      );
-      // return !this.state.user ? null : (
-      //   <AuthComponent history={this.props.history} user={this.state.user} />
-      // );
+      return !this.state.user ? null : <AuthComponent user={this.state.user} />;
     }
   };
 }

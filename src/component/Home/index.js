@@ -117,7 +117,7 @@ ResponsiveContainer.propTypes = {
   children: PropTypes.node
 };
 
-const HomepageLayout = ({ history, username }) => (
+const HomepageLayout = ({ username }) => (
   <ResponsiveContainer username={username}>
     <Segment style={{ padding: '8em 0em' }} vertical>
       <Grid container stackable verticalAlign="middle">

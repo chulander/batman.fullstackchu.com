@@ -22,7 +22,7 @@ class App extends Component {
     return (
       <Home
         handleLogout={this.handleLogout}
-        user={user ? username : undefined}
+        user={user ? user.username : undefined}
       />
     );
   }

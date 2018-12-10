@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import querystring from 'querystring';
+import querystring from 'query-string';
 import AuthService from '../AuthService';
 
 const authRedirect = 'https://login.fullstackchu.com';
@@ -10,12 +10,14 @@ export default function withAuth(AuthComponent) {
       user: null
     };
     componentWillMount() {
-      const { location: { pathname = '' } = {} } = this.props;
+      const { location: { pathname = '', search = '' } = {} } = this.props;
       console.log('what is pathname', pathname);
+      console.log('what is search', search);
 
-      const [, params = ''] = pathname.split('?');
+      // const [, params = ''] = search.split('?');
 
-      const { id_token } = querystring.parse(params);
+      // console.log()
+      const { id_token } = querystring.parse(search);
       console.log('what is parsed.id_token', id_token);
       if (!Auth.loggedIn() && !id_token) {
         console.log('testing auth error mount');

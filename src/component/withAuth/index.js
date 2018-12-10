@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import querystring from 'querystring';
 import AuthService from '../AuthService';
 
 const authRedirect = 'https://login.fullstackchu.com';
@@ -9,6 +10,9 @@ export default function withAuth(AuthComponent) {
       user: null
     };
     componentWillMount() {
+      const { location: { search } = {} } = this.props;
+      const parsed = querystring.parse(search);
+      console.log('what is parsed', parsed)
       if (!Auth.loggedIn()) {
         console.log('testing auth error mount');
         // window.location.replace(authRedirect);
